@@ -1,0 +1,61 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>CBT</title>
+    <style>
+        .profile_root {
+
+         width: 100%;
+         height: 90%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+/*         justify-content: center;*/
+
+     }
+
+     .profile_img {
+         margin-top: 20px;
+         width: 250px;
+         height: 250px;
+
+         border-radius: 250px;
+         border: 2px solid #000;
+         background: url(<path-to-image>), lightgray -19px -2px / 110% 107.569% no-repeat;
+     }
+    </style>
+</head>
+<body style="width: 100%; height: 100vh; margin: 0; background: #000c2d">
+
+    <div th:replace="~{header :: header1}"></div>
+
+<table
+        style="
+        /* background: #000c2d; */
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+      "
+>
+    <tr style="background: #ffffff">
+        <td style="width: 200px; vertical-align: baseline; padding: 0px">
+
+            <div th:replace="~{navbar :: navbar1}"></div>
+        </td>
+        <td style="vertical-align: top">
+            <div class="profile_root">
+                <img class="profile_img" style="width:100px;height:100px; border-radius: 5rem; margin-top:40px;" th:if="${image != null}"
+                     th:src="'data:image/jpeg;base64,' + ${image}" alt="Candidate Image">
+                <p th:if="${image == null}">No image available</p>
+                <p style="margin:0; margin-top:10px; font-size: 24px; font-weight:600;" th:text="${name}"></p>
+                <p style="margin:0; margin-top:10px; font-size: 20px;">Registration no: <span th:text="${id}" style="margin-left:10px"></span></p>
+                <p style="margin:0; margin-top:10px; font-size: 20px;">Total Exam test:<span th:text="${exam}" style="margin-left:10px"></span></p>
+                <p style="margin:0; margin-top:10px; font-size: 20px;">Cancelled:<span th:text="${cancel}" style="margin-left:10px"></span></p>
+                <p style="margin:0; margin-top:10px; font-size: 20px;">Active:<span th:text="${active}" style="margin-left:10px"></span></p>
+                <p style="margin:0; margin-top:10px; font-size: 20px;">Live:<span th:text="${live}" style="margin-left:10px"></span></p>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

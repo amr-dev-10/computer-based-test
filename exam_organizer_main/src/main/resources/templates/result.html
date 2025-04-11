@@ -1,0 +1,281 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>CBT</title>
+    <link rel="stylesheet" th:href="@{/css/result2.css}" />
+  </head>
+  <body style="width: 100%; height: 720px; margin: 0; background: #000c2d">
+  <input type="hidden" id="csrfHeader" data-th-value="${_csrf.headerName}"/>
+  <input type="hidden" id="csrfToken" data-th-value="${_csrf.token}"/>
+
+  <div th:replace="~{header :: header1}"></div>
+    <table
+      style="
+        /* background: #000c2d; */
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+      "
+    >
+      <tr style="background: #bae2ff">
+        <td style="width: 200px; vertical-align: baseline; padding: 0px">
+          <div th:replace="~{navbar :: navbar1}"></div>
+        </td>
+        <td style="vertical-align: top">
+          <div class="result_root">
+            <div class="result_block_a">
+              <form  id="search_form" th:action="@{/admin/exam-data}" method="post" class="result_exam_search">
+                <p style="
+                    width: 120px;
+                    height: 50px;
+                    margin: 0;
+                    margin-top: 16px;
+                    color: #2b2b2b;
+                    font-family: sans-serif;
+                    font-size: 22px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                  ">
+                  Exam id:
+                </p>
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    width: 330px;
+                    height: 50px;
+                    margin-top: 14px;
+                  ">
+                  <input id="examId" style="
+                      width: 297px;
+                      height: 35px;
+                      flex-shrink: 0;
+                      outline: none;
+                      font-size: 18px;
+                      border-radius: 4px;
+                      border: 0.5px solid #000;
+                      background: #f6f6f6;
+                    " type="text" name="examId"/>
+                  <p id="warning_exam_search_result"
+                    style="
+                      margin: 0;
+                      margin-top: 2px;
+                      color: #f00;
+
+                      font-family: sans-serif;
+                      font-size: 13px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: normal;
+                      letter-spacing: 0.39px;
+                    "
+                  >
+                    Please enter valid
+                  </p>
+                </div>
+                <button type="button" onclick="searchExam()" style="
+                    width: 100px;
+                    height: 45px;
+                    flex-shrink: 0;
+                    border-radius: 8px;
+                    border: 0.5px solid #000;
+                    background: #00b2ff;
+                    margin-top: 10px;
+
+                    color: #fff;
+                    text-align: center;
+                    font-family: sans-serif;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+                  ">
+                  Search
+                </button>
+              </form>
+            </div>
+            <!-- exam detail--- -->
+            <div id="result_exam_search" class="result_block_b">
+              <div class="result_flex">
+                <div
+                        id="res_exam_name_a"
+                  style="
+                    width: 200px;
+                    height: 47px;
+                    color: #000;
+
+                    font-family: sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.39px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #d0d0d0;
+                  "
+                >
+                  Mega Contest 2023 <br />
+                  id:788357684
+                </div>
+                <div id="res_exam_schedule"
+                  style="
+                    width: 220px;
+                    height: 47px;
+                    color: #000;
+
+                    font-family: sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.39px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #d0d0d0;
+                  "
+                >
+                  23 Oct 2023 / 23:00 / 1:45 Hour
+                </div>
+                <div id="res_exam_status"
+                  style="
+                    width: 80px;
+                    height: 47px;
+                    color: #000;
+
+                    font-family: sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.39px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #d0d0d0;
+                  "
+                >
+                  Live
+                </div>
+                <div id="res_total"
+                  style="
+                    width: 100px;
+                    height: 47px;
+                    color: #000;
+
+                    font-family: sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    letter-spacing: 0.39px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: #d0d0d0;
+                  "
+                >
+                  Total:<br />
+                  10,00,000
+                </div>
+              </div>
+            </div>
+
+            <!-- result candidate table----------------- -->
+            <div class="result_block_c">
+              <!-- heading of table------------------- -->
+              <div class="flex_table">
+                <div class="result_table_head" style="width: 150px">
+                  ID
+                </div>
+                <div class="result_table_head" style="width: 260px">
+                  Candidate detail
+                </div>
+                <div class="result_table_head" style="width: 50px">Correct</div>
+                <div class="result_table_head" style="width: 50px">Wrong</div>
+                <div class="result_table_head" style="width: 50px">
+                  Not Done
+                </div>
+                <div class="result_table_head" style="width: 50px">Status</div>
+                <div class="result_table_head" style="width: 98px">Options</div>
+              </div>
+              <div id="result_list_show" class="result_row_scroll" style="
+                  height: 480px;
+                  overflow: auto;
+                  width: 100%;
+                  background-color: #ffffff;
+                  border-bottom: 2px solid black;
+                  border-right: 1px solid black;
+                ">
+                <!-- candidate dummy data here------------- -->
+
+                <!-- data end here------------- -->
+              </div>
+            </div>
+            <div
+              class="result_block_d"
+              style="
+                width: 100%;
+                height: 100px;
+                background: #bae2ff;
+
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                justify-content: center;
+              "
+            >
+              <p
+                style="
+                  margin: 0px;
+                  margin-right: 20px;
+                  color: #039100;
+                  text-align: center;
+                  font-family: sans-serif;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                  letter-spacing: 0.36px;
+                "
+              >
+                Download result list :
+              </p>
+              <button
+                style="
+                  width: 113px;
+                  height: 40px;
+                  flex-shrink: 0;
+                  border-radius: 8px;
+                  border: 1px solid #003676;
+                  background: #0763d0;
+                  color: #fff;
+                  text-align: center;
+                  font-family: Inter;
+                  font-size: 18px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                  letter-spacing: 0.54px;
+                  margin-top: 5px;
+                  margin-right: 30px;
+                "
+              >
+                Download
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  <script th:src="@{/js/result.js}" type="text/javascript"></script>
+  <script th:inline="javascript">
+    var csrfToken = /*[[${_csrf.token}]]*/ '';
+    var csrfHeader = /*[[${_csrf.headerName}]]*/ '';
+  </script>
+  </body>
+</html>

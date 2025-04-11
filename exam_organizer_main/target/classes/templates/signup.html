@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CBT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Gradient Background Animation */
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(90deg, #1a73e8, #003366, #00509e); /* Gradient with blues */
+            background-size: 300% 300%;
+            animation: gradient-animation 10s ease infinite; /* Animate the gradient */
+            height: 100vh;
+            width:100%;
+            display:flex;
+            flex-direction:column;
+
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(to right, #003366, #1a73e8); /* Dark gradient color */
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 24px;
+            /*            font-weight: bold;*/
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: fantasy;
+            font-weight: 100;/* Add some spacing between letters */
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px; /* Space between navigation links */
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: text-decoration 0.3s;
+        }
+
+        .navbar-links a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Form Container */
+        .form-container {
+            padding-top:100px;
+            padding-bottom:100px;
+            display: flex;
+            justify-content: center;
+            /*            align-items: center;*/
+            height: 740px; /* Account for navbar height */
+        }
+
+        .form-block {
+            background: white;
+            padding: 4%;
+            border-radius: 10px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Add depth with shadow */
+            width: 80%;
+            max-width: 400px; /* Set a maximum width */
+            text-align: center;
+        }
+
+        /* Form Headings */
+        .form-block h2 {
+            font-size: 30px;
+            color: #003366; /* Dark blue */
+            margin-bottom: 20px;
+            margin-top:0px;
+            /* Space below the heading */
+        }
+
+        /* Input Styling */
+        .form-block input {
+            padding: 12px;
+            margin: 10px 0;
+            width: 90%; /* Full width */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .form-block input:focus {
+            border-color: #1a73e8; /* Highlighted border on focus */
+            box-shadow: 0px 0px 5px rgba(26, 115, 232, 0.5); /* Light shadow */
+        }
+
+        /* Login Button */
+        .login-btn {
+            padding: 12px 25px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #003366; /* Darker shade on hover */
+        }
+
+        /* Signup Link */
+        .signup-link {
+            margin-top: 10px;
+            color: #1a73e8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .signup-link:hover {
+            color: #003366; /* Darker shade on hover */
+            text-decoration: underline;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 600px) {
+            .form-block {
+                width: 90%; /* Adapt to smaller screens */
+            }
+        }
+
+        .login_password_forget {
+            color: #1a73e8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .login_password_forget:hover {
+            color: #003366; /* Darker shade on hover */
+            text-decoration: underline;
+        }
+
+        /* Checkbox styling */
+        .checkbox-label {
+            display: flex; /* Flex layout to align items */
+            align-items: center; /* Align items vertically */
+            font-size: 14px; /* Smal
+         size */
+        }
+
+        .checkbox-label input {
+            margin-right: 2px; /* Space between checkbox and label */
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="navbar-logo">CBT</div>
+    <div class="navbar-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/}">About</a>
+        <a th:href="@{/}">Contact</a>
+    </div>
+</div>
+
+<!-- Form Container -->
+<div class="form-container">
+    <div class="form-block">
+        <!-- Login Heading -->
+        <h2><span style="font-size:16px;">(Admin)</span> <br/> Sign Up </h2>
+
+                <form th:action="@{/admin/signup}" method="post" enctype="multipart/form-data">
+                    <!-- First Name input field -->
+                    <input type="text" name="firstName" placeholder="First Name" required/> <!-- Required field -->
+                    <!-- Last Name input field -->
+                    <input type="text" name="lastName" placeholder="Last Name" required/> <!-- Required field -->
+                    <!-- Username input field -->
+                    <input type="text" name="username" style="margin-bottom:0;" placeholder="Username (Unique)" required/>
+                    <!-- Required field -->
+                    <div id="usernameError" style="color: red; margin:2px 0 2px 4px;  font-size:12px; font-weight:600;"></div>
+                    <input type="email" name="email" placeholder="Email Address" required/> <!-- Required field -->
+                    <!-- Password input field -->
+                    <input type="password" name="password" placeholder="Password" required/> <!-- Required field -->
+                    <input type="text" name="confirmPassword" placeholder="Confirm Password" required/> <!-- Required field -->
+
+                    <!-- Phone number input field (optional) -->
+                    <input type="text" name="phoneNumber" placeholder="Phone Number (optional)"/>
+
+                    <input type="file" id="imageFile" name="imageFile"><br> <!-- New file input field -->
+
+                    <!-- Checkbox for terms of service -->
+                    <label class="checkbox-label">
+                        <input style="width:30px;" type="checkbox" name="tos" required/> <!-- Required field -->
+                        I agree to the <a href="/tos">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.
+                    </label>
+                    <button id="signupButton" type="submit" class="login-btn">Sign Up</button>
+                </form>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const form = document.querySelector("form");
+                const emailField = document.querySelector("input[name='email']");
+                const passwordField = document.querySelector("input[name='password']");
+                const confirmPasswordField = document.querySelector("input[name='confirmPassword']");
+                const usernameField = document.querySelector("input[name='username']");
+                const usernameError = document.getElementById("usernameError");
+                const signupButton = document.getElementById("signupButton");
+
+                form.addEventListener("submit", function (e) {
+                    // Validate email
+                    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                    if (!emailRegex.test(emailField.value)) {
+                        alert("Please enter a valid email address.");
+                        e.preventDefault(); // Prevent form submission
+                        return;
+                    }
+
+                    // Validate password (min length, contains a number, etc.)
+                    const password = passwordField.value;
+                    if (password.length < 8) {
+                        alert("Password must be at least 8 characters long.");
+                        e.preventDefault();
+                        return;
+                    }
+
+                    if (!/[0-9]/.test(password)) {
+                        alert("Password must contain at least one number.");
+                        e.preventDefault();
+                        return;
+                    }
+
+                    // Check if passwords match
+                    if (confirmPasswordField && password !== confirmPasswordField.value) {
+                        alert("Passwords do not match.");
+                        e.preventDefault();
+                        return;
+                    }
+                });
+
+                // Check if username already exists (asynchronous check)
+                usernameField.addEventListener("blur", async function () {
+                    const username = this.value.trim();
+                    //                    console.log("username is change...");
+
+                    if (username.trim() === "") {
+                        usernameError.textContent = "";
+                        signupButton.disabled = false;
+                        return;
+                    }
+                    const encodedUsername = encodeURIComponent(username);
+                    const requestUrl = `/admin/check-username?username=${encodedUsername}`;
+
+                    await fetch(requestUrl,{
+                        method: "GET",
+                    }) // Check the username asynchronously
+                        .then(response => response.json())
+                        .then(data => {
+                        if (data.exists) {
+                            usernameError.textContent = "Username already exists. Please choose another.";
+                            signupButton.disabled = true; // Disable the signup button
+                        } else {
+                            usernameError.textContent = "";
+                            signupButton.disabled = false; // Enable the signup button if the username is unique
+                        }
+                    }).catch(error => {
+                        console.log("Error checking username:", error);
+                        usernameError.textContent = "An error occurred. Please try again later.";
+                        signupButton.disabled = true; // Disable the signup button to prevent invalid submissions
+                    });
+                });
+            });
+
+        </script>
+        <a th:href="@{/admin/login}" class="signup-link">Already have an account? Login</a>
+    </div>
+</div>
+</body>
+</html>
